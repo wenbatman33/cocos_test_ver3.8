@@ -1,0 +1,52 @@
+[
+  {
+    "Id": 1,
+    "Name": "主界面背景",
+    "Desc": "",
+    "Group": "音乐",
+    "Type": "背景音乐",
+    "Volume": 0.15,
+    "Delay": 0.0,
+    "Mp3": "MainBgm"
+  },
+  {
+    "Id": 2,
+    "Name": "战斗背景",
+    "Desc": "",
+    "Group": "音乐",
+    "Type": "背景音乐",
+    "Volume": 0.3,
+    "Delay": 0.0,
+    "Mp3": "BattleBgm"
+  },
+  {
+    "Id": 3,
+    "Name": "点击音效",
+    "Desc": "",
+    "Group": "音效",
+    "Type": "主界面UI音效",
+    "Volume": 0.4,
+    "Delay": 0.0,
+    "Mp3": "Click"
+  },
+  {
+    "Id": 4,
+    "Name": "合成音效",
+    "Desc": "",
+    "Group": "音效",
+    "Type": "UI音效",
+    "Volume": 0.4,
+    "Delay": 0.0,
+    "Mp3": "Syn"
+  },
+  {
+    "Id": 5,
+    "Name": "射击音效",
+    "Desc": "",
+    "Group": "音效",
+    "Type": "UI音效",
+    "Volume": 0.4,
+    "Delay": 0.0,
+    "Mp3": "Shoot"
+  }
+]

@@ -1,0 +1,526 @@
+[
+  {
+    "Id": 1,
+    "Name": "一个格子",
+    "Res": "10000",
+    "weaponGroupNum": 1,
+    "itemType": 0,
+    "Type": "1_1",
+    "Level": 1,
+    "SkillId": 0,
+    "Points": [
+      [
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 2,
+    "Name": "横向两个格子",
+    "Res": "10000",
+    "weaponGroupNum": 1,
+    "itemType": 0,
+    "Type": "1_2",
+    "Level": 1,
+    "SkillId": 0,
+    "Points": [
+      [
+        1,
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 3,
+    "Name": "竖向向两个格子",
+    "Res": "10000",
+    "weaponGroupNum": 1,
+    "itemType": 0,
+    "Type": "2_1",
+    "Level": 1,
+    "SkillId": 0,
+    "Points": [
+      [
+        1
+      ],
+      [
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 4,
+    "Name": "转向3个格子",
+    "Res": "10000",
+    "weaponGroupNum": 1,
+    "itemType": 0,
+    "Type": "2_2",
+    "Level": 1,
+    "SkillId": 0,
+    "Points": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        0
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 5,
+    "Name": "转向3个格子",
+    "Res": "10000",
+    "weaponGroupNum": 1,
+    "itemType": 0,
+    "Type": "2_2",
+    "Level": 1,
+    "SkillId": 0,
+    "Points": [
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 6,
+    "Name": "转向3个格子",
+    "Res": "10000",
+    "weaponGroupNum": 1,
+    "itemType": 0,
+    "Type": "2_2",
+    "Level": 1,
+    "SkillId": 0,
+    "Points": [
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 7,
+    "Name": "转向3个格子",
+    "Res": "10000",
+    "weaponGroupNum": 1,
+    "itemType": 0,
+    "Type": "2_2",
+    "Level": 1,
+    "SkillId": 0,
+    "Points": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 1001,
+    "Name": "普通剑1",
+    "Res": "101",
+    "weaponGroupNum": 1,
+    "itemType": 1,
+    "Type": "2_1",
+    "Level": 1,
+    "SkillId": 101,
+    "Points": [
+      [
+        1
+      ],
+      [
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 1002,
+    "Name": "普通剑2",
+    "Res": "102",
+    "weaponGroupNum": 1,
+    "itemType": 1,
+    "Type": "2_1",
+    "Level": 2,
+    "SkillId": 102,
+    "Points": [
+      [
+        1
+      ],
+      [
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 1003,
+    "Name": "普通剑3",
+    "Res": "103",
+    "weaponGroupNum": 1,
+    "itemType": 1,
+    "Type": "2_1",
+    "Level": 3,
+    "SkillId": 103,
+    "Points": [
+      [
+        1
+      ],
+      [
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 2001,
+    "Name": "普通斧头1",
+    "Res": "201",
+    "weaponGroupNum": 2,
+    "itemType": 1,
+    "Type": "2_2",
+    "Level": 1,
+    "SkillId": 201,
+    "Points": [
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 2002,
+    "Name": "普通斧头2",
+    "Res": "202",
+    "weaponGroupNum": 2,
+    "itemType": 1,
+    "Type": "2_2",
+    "Level": 2,
+    "SkillId": 202,
+    "Points": [
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 2003,
+    "Name": "普通斧头3",
+    "Res": "203",
+    "weaponGroupNum": 2,
+    "itemType": 1,
+    "Type": "2_2",
+    "Level": 3,
+    "SkillId": 203,
+    "Points": [
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 3001,
+    "Name": "普通球1",
+    "Res": "301",
+    "weaponGroupNum": 3,
+    "itemType": 1,
+    "Type": "1_1",
+    "Level": 1,
+    "SkillId": 301,
+    "Points": [
+      [
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 3002,
+    "Name": "普通球2",
+    "Res": "302",
+    "weaponGroupNum": 3,
+    "itemType": 1,
+    "Type": "1_1",
+    "Level": 2,
+    "SkillId": 302,
+    "Points": [
+      [
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 3003,
+    "Name": "普通球3",
+    "Res": "303",
+    "weaponGroupNum": 3,
+    "itemType": 1,
+    "Type": "1_1",
+    "Level": 3,
+    "SkillId": 303,
+    "Points": [
+      [
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 4001,
+    "Name": "普通刀1",
+    "Res": "401",
+    "weaponGroupNum": 4,
+    "itemType": 1,
+    "Type": "1_2",
+    "Level": 1,
+    "SkillId": 401,
+    "Points": [
+      [
+        1,
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 4002,
+    "Name": "普通刀2",
+    "Res": "402",
+    "weaponGroupNum": 4,
+    "itemType": 1,
+    "Type": "1_2",
+    "Level": 2,
+    "SkillId": 402,
+    "Points": [
+      [
+        1,
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 4003,
+    "Name": "普通刀3",
+    "Res": "403",
+    "weaponGroupNum": 4,
+    "itemType": 1,
+    "Type": "1_2",
+    "Level": 3,
+    "SkillId": 403,
+    "Points": [
+      [
+        1,
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 5001,
+    "Name": "手套1",
+    "Res": "501",
+    "weaponGroupNum": 5,
+    "itemType": 1,
+    "Type": "1_1",
+    "Level": 1,
+    "SkillId": 501,
+    "Points": [
+      [
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 5002,
+    "Name": "手套2",
+    "Res": "502",
+    "weaponGroupNum": 5,
+    "itemType": 1,
+    "Type": "1_1",
+    "Level": 2,
+    "SkillId": 502,
+    "Points": [
+      [
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 5003,
+    "Name": "手套3",
+    "Res": "503",
+    "weaponGroupNum": 5,
+    "itemType": 1,
+    "Type": "1_1",
+    "Level": 3,
+    "SkillId": 503,
+    "Points": [
+      [
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 5004,
+    "Name": "手套4",
+    "Res": "504",
+    "weaponGroupNum": 5,
+    "itemType": 1,
+    "Type": "1_1",
+    "Level": 4,
+    "SkillId": 504,
+    "Points": [
+      [
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 6001,
+    "Name": "手里剑1",
+    "Res": "601",
+    "weaponGroupNum": 6,
+    "itemType": 1,
+    "Type": "1_1",
+    "Level": 1,
+    "SkillId": 601,
+    "Points": [
+      [
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 6002,
+    "Name": "手里剑2",
+    "Res": "602",
+    "weaponGroupNum": 6,
+    "itemType": 1,
+    "Type": "1_1",
+    "Level": 2,
+    "SkillId": 602,
+    "Points": [
+      [
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 6003,
+    "Name": "手里剑3",
+    "Res": "603",
+    "weaponGroupNum": 6,
+    "itemType": 1,
+    "Type": "1_1",
+    "Level": 3,
+    "SkillId": 603,
+    "Points": [
+      [
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 7001,
+    "Name": "弓箭1",
+    "Res": "701",
+    "weaponGroupNum": 7,
+    "itemType": 1,
+    "Type": "2_1",
+    "Level": 1,
+    "SkillId": 701,
+    "Points": [
+      [
+        1
+      ],
+      [
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 7002,
+    "Name": "弓箭2",
+    "Res": "702",
+    "weaponGroupNum": 7,
+    "itemType": 1,
+    "Type": "2_1",
+    "Level": 2,
+    "SkillId": 702,
+    "Points": [
+      [
+        1
+      ],
+      [
+        1
+      ]
+    ],
+    "options_num": 10
+  },
+  {
+    "Id": 7003,
+    "Name": "弓箭3",
+    "Res": "703",
+    "weaponGroupNum": 7,
+    "itemType": 1,
+    "Type": "2_1",
+    "Level": 3,
+    "SkillId": 703,
+    "Points": [
+      [
+        1
+      ],
+      [
+        1
+      ]
+    ],
+    "options_num": 10
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "Id": 12001001,
+    "ConstantName": "EliteAtt",
+    "ConstantValue": 1,
+    "ConstantValue2": 0.0,
+    "Explain": "精英怪攻击力比例"
+  },
+  {
+    "Id": 12001002,
+    "ConstantName": "BossAtt",
+    "ConstantValue": 1,
+    "ConstantValue2": 0.0,
+    "Explain": "boss怪攻击力比例"
+  },
+  {
+    "Id": 12001003,
+    "ConstantName": "Attenuation",
+    "ConstantValue": 3,
+    "ConstantValue2": 0.1,
+    "Explain": "每次失败血量衰减比例"
+  },
+  {
+    "Id": 12001004,
+    "ConstantName": "Dynamism",
+    "ConstantValue": 30,
+    "ConstantValue2": 6,
+    "Explain": "体力上限和体力回复1点的时间"
+  },
+  {
+    "Id": 12001005,
+    "ConstantName": "InitialBag",
+    "ConstantValue": 1,
+    "ConstantValue2": 0.0,
+    "Explain": "初始背包"
+  },
+  {
+    "Id": 12001006,
+    "ConstantName": "RefreshPrices",
+    "ConstantValue": 15,
+    "ConstantValue2": 0,
+    "Explain": "刷新所需金币"
+  },
+  {
+    "Id": 12001007,
+    "ConstantName": "FreeRefreshPrices",
+    "ConstantValue": 1,
+    "ConstantValue2": 0.0,
+    "Explain": "免费刷新次数"
+  },
+  {
+    "Id": 12001008,
+    "ConstantName": "FirstBox",
+    "ConstantValue": "1|90,2|10",
+    "ConstantValue2": 0.0,
+    "Explain": "首次宝箱"
+  }
+]
