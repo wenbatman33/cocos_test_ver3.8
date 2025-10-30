@@ -14,7 +14,8 @@ import {
     Enum,
     clamp,
     Label,
-    Color
+    Color,
+    Size
 } from 'cc';
 
 const { ccclass, property } = _decorator;
@@ -25,6 +26,16 @@ enum Direction {
 }
 
 Enum(Direction);
+
+// 配置常量
+const CAROUSEL_CONFIG = {
+    DEFAULT_SIZE: { width: 750, height: 1334 },
+    DEFAULT_COLORS: [
+        new Color(255, 120, 120), new Color(120, 255, 120), new Color(120, 120, 255),
+        new Color(255, 255, 120), new Color(255, 120, 255), new Color(120, 255, 255),
+        new Color(255, 180, 120), new Color(180, 120, 255)
+    ]
+};
 
 @ccclass('Carousel')
 export class Carousel extends Component {
@@ -73,8 +84,6 @@ export class Carousel extends Component {
     private actualIndex: number = 0; // 實際顯示的頁面索引
 
     start() {
-        console.log('🚀 Carousel 開始初始化');
-        
         // 檢查是否需要動態創建頁面
         if (this.autoDynamicCreate) {
             // 如果沒有設置任何頁面，或者現有頁面是空的，則動態創建
@@ -82,13 +91,10 @@ export class Carousel extends Component {
             const hasNoPages = this.pages.length === 0 && this.node.children.length === 0;
             
             if (hasNoPages) {
-                console.log('🔄 沒有任何頁面，自動動態創建');
                 this.createDynamicPages();
             } else if (hasEmptyPages) {
-                console.log('🔄 檢測到空頁面，為其添加動態內容');
                 this.addContentToExistingPages();
             } else {
-                console.log('📄 使用現有頁面設置');
                 this.setupExistingPages();
             }
         } else {
@@ -101,71 +107,47 @@ export class Carousel extends Component {
         if (this.autoPlay) {
             this.startAutoPlay();
         }
-        
-        console.log('✅ Carousel 初始化完成');
     }
 
     private setupExistingPages() {
-        console.log('🔧 設置現有頁面');
-        
         // 檢查是否已經有子節點但沒有設置到 pages 數組中
         const children = this.node.children;
-        console.log('檢測到子節點數量:', children.length);
-        console.log('當前 pages 數組長度:', this.pages.length);
         
         // 情況1：Pages 數組已經設置，但子節點為空（說明頁面節點還沒有內容）
         if (this.pages.length > 0 && children.length === 0) {
-            console.log('📋 Pages 數組已設置但場景中沒有對應節點，可能需要檢查節點引用');
             return;
         }
         
         // 情況2：有子節點但 Pages 數組為空，自動添加
         if (children.length > 0 && this.pages.length === 0) {
-            console.log('檢測到現有子節點，自動添加到 pages 數組');
             this.pages = [...children];
         }
         
         // 情況3：Pages 數組和子節點都有，檢查內容並添加
         if (this.pages.length > 0) {
-            console.log('📄 處理現有頁面內容');
             this.addContentToExistingPages();
         }
     }
 
     private createDynamicPages() {
-        console.log(`🏗️ 動態創建 ${this.dynamicPageCount} 個頁面`);
-        
         // 設置容器大小
         let transform = this.node.getComponent(UITransform);
         if (!transform) {
             transform = this.node.addComponent(UITransform);
         }
         if (transform.width === 0 || transform.height === 0) {
-            transform.setContentSize(750, 1334); // 默認手機屏幕大小
+            transform.setContentSize(CAROUSEL_CONFIG.DEFAULT_SIZE.width, CAROUSEL_CONFIG.DEFAULT_SIZE.height);
         }
 
         // 清空現有頁面
         this.pages = [];
         this.node.removeAllChildren();
 
-        const colors = [
-            new Color(255, 120, 120), // 粉紅
-            new Color(120, 255, 120), // 淺綠
-            new Color(120, 120, 255), // 淺藍
-            new Color(255, 255, 120), // 淺黃
-            new Color(255, 120, 255), // 洋紅
-            new Color(120, 255, 255), // 青色
-            new Color(255, 180, 120), // 橙色
-            new Color(180, 120, 255), // 紫色
-        ];
-
         for (let i = 0; i < this.dynamicPageCount; i++) {
-            const page = this.createSingleDynamicPage(i, colors[i % colors.length], transform.contentSize);
+            const page = this.createSingleDynamicPage(i, CAROUSEL_CONFIG.DEFAULT_COLORS[i % CAROUSEL_CONFIG.DEFAULT_COLORS.length], transform.contentSize);
             this.node.addChild(page);
             this.pages.push(page);
         }
-
-        console.log(`✅ 動態創建完成，共 ${this.pages.length} 個頁面`);
     }
 
     private createSingleDynamicPage(index: number, color: Color, pageSize: any): Node {
@@ -175,179 +157,60 @@ export class Carousel extends Component {
         const pageTransform = page.addComponent(UITransform);
         pageTransform.setContentSize(pageSize);
         
-        // 創建主標題
-        const titleNode = new Node('Title');
-        page.addChild(titleNode);
-        titleNode.position.set(0, 200, 0);
+        // 創建頁面元素
+        this.createPageElement(page, 'Title', `動態頁面 ${index + 1}`, new Vec3(0, 200, 0), { width: 400, height: 80 }, 48, color);
+        this.createPageElement(page, 'Description', `這是動態創建的第 ${index + 1} 頁\n可以左右滑動切換`, new Vec3(0, 100, 0), { width: 500, height: 60 }, 24, new Color(200, 200, 200));
+        this.createPageElement(page, 'Indicator', `${index + 1} / ${this.dynamicPageCount}`, new Vec3(0, 0, 0), { width: 200, height: 40 }, 32, new Color(150, 150, 150));
         
-        const titleTransform = titleNode.addComponent(UITransform);
-        titleTransform.setContentSize(400, 80);
-        
-        const titleLabel = titleNode.addComponent(Label);
-        titleLabel.string = `動態頁面 ${index + 1}`;
-        titleLabel.fontSize = 48;
-        titleLabel.color = color;
-        
-        // 創建描述文字
-        const descNode = new Node('Description');
-        page.addChild(descNode);
-        descNode.position.set(0, 100, 0);
-        
-        const descTransform = descNode.addComponent(UITransform);
-        descTransform.setContentSize(500, 60);
-        
-        const descLabel = descNode.addComponent(Label);
-        descLabel.string = `這是動態創建的第 ${index + 1} 頁\n可以左右滑動切換`;
-        descLabel.fontSize = 24;
-        descLabel.color = new Color(200, 200, 200);
-        
-        // 創建頁面指示器
-        const indicatorNode = new Node('Indicator');
-        page.addChild(indicatorNode);
-        indicatorNode.position.set(0, 0, 0);
-        
-        const indicatorTransform = indicatorNode.addComponent(UITransform);
-        indicatorTransform.setContentSize(200, 40);
-        
-        const indicatorLabel = indicatorNode.addComponent(Label);
-        indicatorLabel.string = `${index + 1} / ${this.dynamicPageCount}`;
-        indicatorLabel.fontSize = 32;
-        indicatorLabel.color = new Color(150, 150, 150);
-        
-        // 創建測試按鈕
-        const buttonNode = new Node('TestButton');
-        page.addChild(buttonNode);
-        buttonNode.position.set(0, -100, 0);
-        
-        const buttonTransform = buttonNode.addComponent(UITransform);
-        buttonTransform.setContentSize(250, 60);
-        
-        const buttonLabel = buttonNode.addComponent(Label);
-        buttonLabel.string = '點擊下一頁 →';
-        buttonLabel.fontSize = 28;
-        buttonLabel.color = new Color(255, 255, 255);
-        
-        // 為按鈕添加點擊事件
-        buttonNode.on(Input.EventType.TOUCH_END, () => {
-            console.log(`🔘 動態頁面 ${index + 1} 的按鈕被點擊`);
-            this.nextPage();
-        }, this);
+        // 創建按鈕
+        const buttonNode = this.createPageElement(page, 'TestButton', '點擊下一頁 →', new Vec3(0, -100, 0), { width: 250, height: 60 }, 28, new Color(255, 255, 255));
+        buttonNode.on(Input.EventType.TOUCH_END, () => this.nextPage(), this);
         
         // 創建滑動提示
-        const hintNode = new Node('SwipeHint');
-        page.addChild(hintNode);
-        hintNode.position.set(0, -200, 0);
+        this.createPageElement(page, 'SwipeHint', '← 滑動試試 →', new Vec3(0, -200, 0), { width: 300, height: 40 }, 20, new Color(100, 100, 100));
         
-        const hintTransform = hintNode.addComponent(UITransform);
-        hintTransform.setContentSize(300, 40);
-        
-        const hintLabel = hintNode.addComponent(Label);
-        hintLabel.string = '← 滑動試試 →';
-        hintLabel.fontSize = 20;
-        hintLabel.color = new Color(100, 100, 100);
-        
-        console.log(`📄 創建動態頁面: ${page.name}`);
         return page;
     }
 
+    private createPageElement(parent: Node, name: string, text: string, position: Vec3, size: { width: number, height: number }, fontSize: number, color: Color): Node {
+        const element = new Node(name);
+        parent.addChild(element);
+        element.position = position;
+        
+        const transform = element.addComponent(UITransform);
+        transform.setContentSize(size.width, size.height);
+        
+        const label = element.addComponent(Label);
+        label.string = text;
+        label.fontSize = fontSize;
+        label.color = color;
+        
+        return element;
+    }
+
     private addContentToExistingPages() {
-        console.log('🎨 開始為現有頁面添加內容');
-        
-        const colors = [
-            new Color(255, 100, 100), // 紅色 - p_1
-            new Color(100, 255, 100), // 綠色 - p_2  
-            new Color(100, 100, 255), // 藍色 - p_3
-            new Color(255, 255, 100), // 黃色
-            new Color(255, 100, 255), // 洋紅
-        ];
-
         this.pages.forEach((page, index) => {
-            if (!page || !page.isValid) {
-                console.warn(`⚠️ 頁面 ${index} 無效，跳過`);
-                return;
-            }
+            if (!page?.isValid || page.getChildByName('TestLabel') || page.getChildByName('Title')) return;
             
-            console.log(`檢查頁面 ${page.name}，子節點數量: ${page.children.length}`);
+            this.setupPageTransform(page);
+            this.createPageElement(page, 'TestLabel', `${page.name}\n✨ 動態內容 ✨\n頁面 ${index + 1}/${this.pages.length}`, new Vec3(0, 0, 0), { width: 400, height: 120 }, 36, CAROUSEL_CONFIG.DEFAULT_COLORS[index % CAROUSEL_CONFIG.DEFAULT_COLORS.length]);
             
-            // 檢查是否已經有我們的測試內容
-            const hasTestContent = page.getChildByName('TestLabel') || page.getChildByName('Title');
+            const buttonNode = this.createPageElement(page, 'TestButton', '點我切換到下一頁 →', new Vec3(0, -150, 0), { width: 300, height: 80 }, 28, new Color(255, 255, 255));
+            buttonNode.on(Input.EventType.TOUCH_END, () => this.nextPage(), this);
             
-            if (!hasTestContent) {
-                console.log(`📝 為 ${page.name} 添加測試內容`);
-                
-                // 確保頁面有 UITransform
-                let pageTransform = page.getComponent(UITransform);
-                if (!pageTransform) {
-                    pageTransform = page.addComponent(UITransform);
-                    console.log(`為 ${page.name} 添加了 UITransform`);
-                }
-                
-                // 設置頁面大小與容器一致
-                const containerTransform = this.node.getComponent(UITransform);
-                if (containerTransform && containerTransform.width > 0 && containerTransform.height > 0) {
-                    pageTransform.setContentSize(containerTransform.contentSize);
-                    console.log(`設置 ${page.name} 大小為:`, containerTransform.contentSize);
-                } else {
-                    pageTransform.setContentSize(750, 1334); // 默認大小
-                    console.log(`設置 ${page.name} 默認大小: 750x1334`);
-                }
-
-                // 添加一個明顯的背景標籤
-                const testLabelNode = new Node('TestLabel');
-                page.addChild(testLabelNode);
-                
-                const testLabelTransform = testLabelNode.addComponent(UITransform);
-                testLabelTransform.setContentSize(400, 120);
-                testLabelNode.position.set(0, 0, 0); // 置中顯示
-                
-                const testLabel = testLabelNode.addComponent(Label);
-                testLabel.string = `${page.name}\n✨ 動態內容 ✨\n頁面 ${index + 1}/${this.pages.length}`;
-                testLabel.fontSize = 36;
-                testLabel.color = colors[index % colors.length];
-                
-                console.log(`✅ 為 ${page.name} 添加了測試標籤`);
-                
-                // 添加一個大一點的測試按鈕
-                const testButtonNode = new Node('TestButton');
-                page.addChild(testButtonNode);
-                
-                testButtonNode.position.set(0, -150, 0);
-                const testButtonTransform = testButtonNode.addComponent(UITransform);
-                testButtonTransform.setContentSize(300, 80);
-                
-                const testButtonLabel = testButtonNode.addComponent(Label);
-                testButtonLabel.string = `點我切換到下一頁 →`;
-                testButtonLabel.fontSize = 28;
-                testButtonLabel.color = new Color(255, 255, 255);
-                
-                // 為測試按鈕添加點擊事件
-                testButtonNode.on(Input.EventType.TOUCH_END, () => {
-                    console.log(`🔘 ${page.name} 的測試按鈕被點擊`);
-                    this.nextPage();
-                }, this);
-                
-                console.log(`✅ 為 ${page.name} 添加了測試按鈕`);
-                
-                // 添加滑動提示
-                const hintNode = new Node('SwipeHint');
-                page.addChild(hintNode);
-                
-                hintNode.position.set(0, -250, 0);
-                const hintTransform = hintNode.addComponent(UITransform);
-                hintTransform.setContentSize(300, 40);
-                
-                const hintLabel = hintNode.addComponent(Label);
-                hintLabel.string = '← 左右滑動試試 →';
-                hintLabel.fontSize = 20;
-                hintLabel.color = new Color(150, 150, 150);
-                
-                console.log(`✅ 為 ${page.name} 添加了滑動提示`);
-            } else {
-                console.log(`✅ ${page.name} 已有內容，跳過添加`);
-            }
+            this.createPageElement(page, 'SwipeHint', '← 左右滑動試試 →', new Vec3(0, -250, 0), { width: 300, height: 40 }, 20, new Color(150, 150, 150));
         });
+    }
+
+    private setupPageTransform(page: Node): void {
+        let pageTransform = page.getComponent(UITransform);
+        if (!pageTransform) {
+            pageTransform = page.addComponent(UITransform);
+        }
         
-        console.log('🎨 完成為所有頁面添加內容');
+        const containerTransform = this.node.getComponent(UITransform);
+        const size = (containerTransform?.width > 0) ? containerTransform.contentSize : new Size(CAROUSEL_CONFIG.DEFAULT_SIZE.width, CAROUSEL_CONFIG.DEFAULT_SIZE.height);
+        pageTransform.setContentSize(size);
     }
 
     private initializeCarousel() {
@@ -399,51 +262,32 @@ export class Carousel extends Component {
     }
 
     private createDefaultPages() {
-        // 設置容器大小
+        this.setupNodeTransform();
+        
         const transform = this.node.getComponent(UITransform);
-        if (!transform) {
-            this.node.addComponent(UITransform);
-        }
-        if (transform.width === 0 || transform.height === 0) {
-            transform.setContentSize(750, 1334); // 默認手機屏幕大小
-        }
-
-        // 創建 3 個默認頁面
-        const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1']; // 紅、青、藍
         const pageNames = ['頁面 1', '頁面 2', '頁面 3'];
 
         for (let i = 0; i < 3; i++) {
             const page = new Node(`DefaultPage_${i + 1}`);
+            this.setupPageTransform(page);
             
-            // 設置頁面大小與容器一致
-            const pageTransform = page.addComponent(UITransform);
-            pageTransform.setContentSize(transform.contentSize);
+            // 創建背景和標籤
+            this.createPageElement(page, 'Background', '', new Vec3(0, 0, 0), { width: transform.width, height: transform.height }, 0, new Color(255, 255, 255));
+            this.createPageElement(page, 'Label', pageNames[i], new Vec3(0, 0, 0), { width: 300, height: 100 }, 48, new Color(255, 255, 255));
             
-            // 創建背景
-            const bgNode = new Node('Background');
-            page.addChild(bgNode);
-            
-            const bgTransform = bgNode.addComponent(UITransform);
-            bgTransform.setContentSize(transform.contentSize);
-            
-            // 添加標籤
-            const labelNode = new Node('Label');
-            page.addChild(labelNode);
-            
-            const labelTransform = labelNode.addComponent(UITransform);
-            labelTransform.setContentSize(300, 100);
-            
-            const label = labelNode.addComponent(Label);
-            label.string = pageNames[i];
-            label.fontSize = 48;
-            label.color = new Color(255, 255, 255);
-            
-            // 添加到場景和數組
             this.node.addChild(page);
             this.pages.push(page);
         }
+    }
 
-        console.log('✅ 自動創建了 3 個默認測試頁面');
+    private setupNodeTransform(): void {
+        let transform = this.node.getComponent(UITransform);
+        if (!transform) {
+            transform = this.node.addComponent(UITransform);
+        }
+        if (transform.width === 0 || transform.height === 0) {
+            transform.setContentSize(CAROUSEL_CONFIG.DEFAULT_SIZE.width, CAROUSEL_CONFIG.DEFAULT_SIZE.height);
+        }
     }
 
     private setupInfiniteScroll() {
@@ -494,15 +338,7 @@ export class Carousel extends Component {
 
     private updatePageSize() {
         const transform = this.node.getComponent(UITransform);
-        if (this.direction === Direction.HORIZONTAL) {
-            this.pageSize = transform.width;
-        } else {
-            this.pageSize = transform.height;
-        }
-
-        console.log('頁面大小設置為:', this.pageSize);
-        console.log('容器大小:', transform.contentSize);
-        console.log('滑動方向:', this.direction === Direction.HORIZONTAL ? '水平' : '垂直');
+        this.pageSize = (this.direction === Direction.HORIZONTAL) ? transform.width : transform.height;
 
         // 更新所有頁面的位置
         this.updateAllPagesPosition();
@@ -510,44 +346,40 @@ export class Carousel extends Component {
 
     private updateAllPagesPosition() {
         const children = this.node.children;
-        console.log('更新頁面位置，子節點數量:', children.length, '實際索引:', this.actualIndex);
         
         for (let i = 0; i < children.length; i++) {
             const page = children[i];
             if (this.direction === Direction.HORIZONTAL) {
                 const newX = (i - this.actualIndex) * this.pageSize;
                 page.position = new Vec3(newX, 0, 0);
-                console.log(`頁面 ${i} (${page.name}) 位置設為: x=${newX}`);
             } else {
                 const newY = -(i - this.actualIndex) * this.pageSize;
                 page.position = new Vec3(0, newY, 0);
-                console.log(`頁面 ${i} (${page.name}) 位置設為: y=${newY}`);
             }
         }
     }
 
     private setupTouchEvents() {
-        console.log('🔧 開始設置觸摸事件');
+        // 確保節點有 UITransform 組件
+        let transform = this.node.getComponent(UITransform);
+        if (!transform) {
+            transform = this.node.addComponent(UITransform);
+        }
         
-        // 方法1: 使用節點事件
+        // 設置觸摸事件
         this.node.on(Input.EventType.TOUCH_START, this.onTouchStart, this);
         this.node.on(Input.EventType.TOUCH_MOVE, this.onTouchMove, this);
         this.node.on(Input.EventType.TOUCH_END, this.onTouchEnd, this);
         this.node.on(Input.EventType.TOUCH_CANCEL, this.onTouchEnd, this);
         
-        // 方法2: 使用全局 input 系統（備用）
+        // 全局觸摸事件（備用方案）
         input.on(Input.EventType.TOUCH_START, this.onGlobalTouchStart, this);
         input.on(Input.EventType.TOUCH_MOVE, this.onGlobalTouchMove, this);
         input.on(Input.EventType.TOUCH_END, this.onGlobalTouchEnd, this);
-        
-        console.log('✅ 觸摸事件已設置');
-        console.log('Carousel 節點大小:', this.node.getComponent(UITransform)?.contentSize);
-        console.log('Carousel 節點位置:', this.node.position);
     }
 
     // 全局觸摸事件處理（備用方案）
     private onGlobalTouchStart(event: EventTouch) {
-        console.log('🌍 全局觸摸開始:', event.getUILocation());
         this.onTouchStart(event);
     }
 
@@ -564,7 +396,6 @@ export class Carousel extends Component {
     }
 
     private onTouchStart(event: EventTouch) {
-        console.log('🖱️ 觸摸開始:', event.getUILocation());
         this.isDragging = true;
         this.startTouchPos.set(event.getUILocation().x, event.getUILocation().y, 0);
         this.lastTouchPos.set(this.startTouchPos);
@@ -588,8 +419,6 @@ export class Carousel extends Component {
         const deltaPos = new Vec3();
         Vec3.subtract(deltaPos, currentPos, this.lastTouchPos);
 
-        console.log('🖱️ 觸摸移動:', deltaPos.x, deltaPos.y);
-
         // 移動內容
         const newPos = new Vec3(this.node.position);
         if (this.direction === Direction.HORIZONTAL) {
@@ -605,7 +434,6 @@ export class Carousel extends Component {
     private onTouchEnd(event: EventTouch) {
         if (!this.isDragging) return;
         
-        console.log('🖱️ 觸摸結束');
         this.isDragging = false;
 
         const endPos = new Vec3(event.getUILocation().x, event.getUILocation().y, 0);
