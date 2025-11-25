@@ -90,7 +90,7 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 375.00000000000006,
+      "x": 375,
       "y": 667,
       "z": 0
     },
@@ -427,7 +427,7 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -255.00000000000006,
+      "x": -255,
       "y": 617,
       "z": 0
     },
@@ -514,7 +514,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
+      "width": 150,
       "height": 40
     },
     "_anchorPoint": {
@@ -544,7 +544,7 @@
       "b": 255,
       "a": 255
     },
-    "_string": "場景1",
+    "_string": "Carousel場景",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 20,
@@ -739,7 +739,7 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -35.00000000000006,
+      "x": -35,
       "y": 617,
       "z": 0
     },
@@ -856,7 +856,7 @@
       "b": 255,
       "a": 255
     },
-    "_string": "場景2",
+    "_string": "stage_1",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 20,
@@ -1035,7 +1035,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 750.0000000000001,
+      "width": 750,
       "height": 1334
     },
     "_anchorPoint": {
@@ -1137,7 +1137,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 750.0000000000001,
+      "width": 750,
       "height": 1334
     },
     "_anchorPoint": {

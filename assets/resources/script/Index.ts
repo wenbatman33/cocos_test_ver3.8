@@ -8,17 +8,14 @@ export class Index extends Component {
     
     @property(Node)
     btn_2: Node = null;
+    private scenesList = ["Carousel", "stage_1"];
 
     start() {
         this.btn_1.on('click', this.onBtn1Click, this);
         this.btn_2.on('click', this.onBtn2Click, this);
     }
-    onBtn1Click() {
-        director.loadScene("Carousel");
-    }
-    onBtn2Click() {
-        director.loadScene("stage_2");
-    }   
+    onBtn1Click = ()=> director.loadScene(this.scenesList[0]);
+    onBtn2Click = ()=> director.loadScene(this.scenesList[1]);
 
     update(deltaTime: number) {
         
